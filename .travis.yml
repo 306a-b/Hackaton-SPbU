@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "4"
+before_install:
+  - curl -L https://npmjs.org/install.sh | sh
+  - npm install -g webpack
+script:
+  - npm test
+  - npm run build
+notification:
+  email: false
