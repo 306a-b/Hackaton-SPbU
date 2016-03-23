@@ -1,0 +1,19 @@
+{
+  "name": "hackaton-spbu",
+  "version": "0.0.0",
+  "description": "Hackaton project",
+  "main": "/src/app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MadMed677/Hackaton-SPbU.git"
+  },
+  "author": "MadMed677",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MadMed677/Hackaton-SPbU/issues"
+  },
+  "homepage": "https://github.com/MadMed677/Hackaton-SPbU"
+}
