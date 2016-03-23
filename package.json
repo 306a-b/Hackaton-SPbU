@@ -4,7 +4,7 @@
   "description": "Hackaton project",
   "main": "/src/app.js",
   "scripts": {
-    "test": "npm test"
+
   },
   "repository": {
     "type": "git",
