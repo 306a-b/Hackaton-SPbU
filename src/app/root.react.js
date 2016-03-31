@@ -1,4 +1,6 @@
 import React            from 'react';
+import Navigation       from '../engine/components/navigation.react';
+import DevTools         from '../engine/settings/_devtools';
 
 class Root extends React.Component {
     static propTypes = {
@@ -14,11 +16,17 @@ class Root extends React.Component {
     }
 
     render() {
+        const devTools = NODE_ENV == 'development' ? <DevTools /> : null;
+
         return (
             <div>
-                Root
+                <Navigation />
 
-                { this.props.children }
+                <div className="container">
+                    { this.props.children }
+                </div>
+
+                { devTools }
             </div>
         );
     }

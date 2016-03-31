@@ -13,8 +13,6 @@ class Container extends React.Component {
         return (
             <div>
                 Dashboard
-
-                { this.props.children }
             </div>
         );
     }
