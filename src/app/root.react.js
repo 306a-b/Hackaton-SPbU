@@ -1,7 +1,11 @@
-import React, { PropTypes }         from 'react';
+import React            from 'react';
 
-class Container extends React.Component {
+class Root extends React.Component {
     static propTypes = {
+
+    };
+
+    state = {
 
     };
 
@@ -12,12 +16,12 @@ class Container extends React.Component {
     render() {
         return (
             <div>
-                Dashboard
+                Root
 
                 { this.props.children }
             </div>
         );
     }
-};
+}
 
-export default Container;
+export default Root;

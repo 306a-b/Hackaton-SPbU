@@ -1,24 +1,20 @@
 import { applyMiddleware, createStore, compose }    from 'redux';
 import thunk                                        from 'redux-thunk';
-import reducers                                     from '../_reducers';
-import DevTools                                     from '../_devtools';
+import reducers                                     from '../settings/_reducers';
+import DevTools                                     from '../settings/_devtools';
 // import middleware                                from './_middleware';
+
+if ( module.hot ) {
+    module.hot.accept('../settings/_reducers', () =>
+        store.replaceReducer( require('../settings/_reducers').default )
+    );
+}
 
 const middleware = compose(
     applyMiddleware(thunk),
     DevTools.instrument()
 );
 
-export default (initialState = {}) => {
-    const store = createStore(reducers, initialState, middleware);
-    console.warn('store: ', store);
+const store = createStore(reducers, {}, middleware);
 
-    if ( module.hot ) {
-        module.hot.accept('../_reducers', () =>
-            store.replaceReducer( require('../_reducers').default )
-        );
-    }
-
-
-    return store;
-};
+export default store;

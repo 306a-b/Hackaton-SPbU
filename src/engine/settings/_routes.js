@@ -1,12 +1,12 @@
 import React, { PropTypes }                     from 'react';
 import { Provider }                             from 'react-redux';
-import { Router, Route, browserHistory }        from 'react-router';
-import { syncHistoryWithStore, routerReducer }  from 'react-router-redux';
-
+import { Router, Route, IndexRedirect }         from 'react-router';
 import history                                  from './_history';
-import Dashboard                                from '../app/modules/dashboard/components/index.react';
 
-export default class Root extends React.Component {
+import Root                                     from '../../app/root.react.js';
+import Dashboard                                from '../../app/modules/dashboard/components/index.react.js';
+
+export default class Routes extends React.Component {
     static propTypes = {
         store: PropTypes.object.isRequired,
     };
@@ -23,7 +23,10 @@ export default class Root extends React.Component {
         return (
             <Provider store={ this.props.store }>
                 <Router history={ history }>
-                    <Route path="/" component={ Dashboard }></Route>
+                    <Route path="/" component={ Root }>
+                        <IndexRedirect to="/dashboard" />
+                        <Route path="/dashboard" component={ Dashboard } />
+                    </Route>
                 </Router>
             </Provider>
         );
