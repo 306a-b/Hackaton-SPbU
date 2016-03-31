@@ -2,6 +2,7 @@ import React, { PropTypes }                     from 'react';
 import { Provider }                             from 'react-redux';
 import { Router, Route, IndexRedirect }         from 'react-router';
 import history                                  from './_history';
+import '!style!css!stylus!../../css/style.styl';
 
 import Root                                     from '../../app/root.react.js';
 import Dashboard                                from '../../app/modules/dashboard/components/index.react.js';

@@ -19,7 +19,7 @@ class Root extends React.Component {
         const devTools = NODE_ENV == 'development' ? <DevTools /> : null;
 
         return (
-            <div>
+            <div className="full-height">
                 <Navigation />
 
                 <div className="container">
