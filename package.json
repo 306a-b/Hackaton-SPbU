@@ -4,7 +4,9 @@
   "description": "Hackaton project",
   "main": "/src/app.js",
   "scripts": {
-    "start": "NODE_PATH=. NODE_ENV=development webpack-dev-server --inline --hot"
+    "start": "NODE_PATH=. NODE_ENV=development webpack-dev-server --inline --hot",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
+    "build": "NODE_PATH=. NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -39,9 +41,11 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
     "classnames": "^2.2.3",
     "core-decorators": "^0.11.0",
     "css-loader": "^0.23.1",
+    "mocha": "^2.4.5",
     "react": "^0.14.8",
     "react-addons-transition-group": "^0.14.8",
     "react-transform-hmr": "^1.0.4",
