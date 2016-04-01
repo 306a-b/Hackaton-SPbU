@@ -3,7 +3,7 @@ import json
 
 
 class Offer(db.Model):
-    __bind_key__ = 'offer'
+    #__bind_key__ = 'offer'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     time = db.Column(db.String(200))
@@ -34,7 +34,7 @@ class Offer(db.Model):
 
 
 class Category(db.Model):
-    __bind_key__ = 'category'
+    #__bind_key__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
 
