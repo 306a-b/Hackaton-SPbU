@@ -11,9 +11,8 @@ if ( module.hot ) {
 }
 
 const middleware = compose(
-    applyMiddleware(thunk),
-    DevTools.instrument(),
-    applyMiddleware(api)
+    applyMiddleware(api),
+    DevTools.instrument()
 );
 
 const store = createStore(reducers, {}, middleware);

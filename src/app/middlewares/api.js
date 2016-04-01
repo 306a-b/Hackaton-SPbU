@@ -11,14 +11,15 @@ class Request {
 }
 
 export default store => next => action => {
+    console.log('middleware: ', action);
     if ( !action.callAPI ) return next(action);
 
     next({ type: action.type + constants._START });
 
-    const request = new Request({ url: action.callAPI, data: action.data });
+    const request = new Request({ url: action.callAPI, payload: action.payload });
 
     request.get().then( res =>
-        next({ type: action.type + constants._SUCCESS, data: res.json() })
+        next({ type: action.type + constants._SUCCESS, payload: res.json() })
     , error =>
         next({ type: action.type + constants._FAIL, error: error })
     );

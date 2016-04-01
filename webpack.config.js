@@ -43,7 +43,7 @@ const config = {
     devServer: {
         proxy: [{
             path: '/api/*',
-            target: 'http://localhost:3001'
+            target: 'https://hackaton-spbu-1.herokuapp.com'
         }],
         port: '1336',
         historyApiFallback: true,
