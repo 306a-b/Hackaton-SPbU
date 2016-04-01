@@ -1,24 +1,51 @@
+import _                    from 'lodash';
 import constants            from '../../engine/settings/_constants';
 
+const baseURL               = process.env.NODE_ENV == 'production' ? 'http://hackaton-spbu-1.herokuapp.com' : 'http://hackaton-spbu-1.herokuapp.com';
+
+function toQueryString(obj) {
+    var parts = [];
+    for (var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+            parts.push(encodeURIComponent(i) + "=" + encodeURIComponent(obj[i]));
+        }
+    }
+    return parts.join("&");
+}
+
 class Request {
-    constructor(params) {
-        this.url = params.url || '';
+    constructor(params = {}) {
+        this.url = baseURL + params.url || baseURL;
+        this.method = params.method.toUpperCase() || 'GET';
+        this.query = params.query;
+        this.body = params.body || {};
     }
 
-    get() {
-        return fetch(this.url)
+    send() {
+        return new Promise( (resolve, reject) => {
+            if ( !_.isEmpty(this.query) ) this.url = this.url + '?' + toQueryString(this.query);
+
+            return fetch(this.url, {
+                method: this.method,
+                query: this.query,
+            }).then( res => resolve( res.json() ));
+        });
     }
 }
 
 export default store => next => action => {
-    console.log('middleware: ', action);
     if ( !action.callAPI ) return next(action);
 
     next({ type: action.type + constants._START });
 
-    const request = new Request({ url: action.callAPI, payload: action.payload });
+    console.log('middleware: ', action);
 
-    request.get().then( res => {
+    const request = new Request({
+        url: action.callAPI,
+        method: action.method,
+    });
+
+    request.send().then( res => {
         console.warn('Success: ', res);
         return next({ type: action.type + constants._SUCCESS, payload: res.json() })
     }, error => {
