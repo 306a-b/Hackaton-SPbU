@@ -1,3 +1,3 @@
-from database import db
+import database
 
-db.create_all()
+database.db.create_all()

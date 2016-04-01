@@ -47,9 +47,14 @@ https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 $ heroku login
 ```
 ### Update production server
-commit all your changes and
+commit all your changes
+- if you use branch master
 ```
 $ git push heroku master
+```
+- if you use your own branch
+```
+$ git push heroku _branch-name_:master
 ```
 ### Create app
 ```
