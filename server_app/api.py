@@ -1,9 +1,9 @@
 import sys
 import database.models
+import json
+import pymorphy2
 from server_app import app
 from flask import jsonify
-import pymorphy2
-
 
 morph = pymorphy2.MorphAnalyzer()
 

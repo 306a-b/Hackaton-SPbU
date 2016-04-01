@@ -1,3 +1,5 @@
+DAWG-Python==0.7.2
+docopt==0.6.2
 Flask==0.10.1
 Flask-Cors==2.1.2
 Flask-SQLAlchemy==2.1
@@ -6,6 +8,8 @@ itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
 psycopg2==2.6.1
+pymorphy2==0.8
+pymorphy2-dicts==2.4.393442.3710985
 six==1.10.0
 SQLAlchemy==1.0.12
 Werkzeug==0.11.5
