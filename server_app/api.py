@@ -2,7 +2,10 @@ import sys
 import database.models
 from server_app import app
 from flask import jsonify
-import json
+import pymorphy2
+
+
+morph = pymorphy2.MorphAnalyzer()
 
 
 @app.route("/api/help")
@@ -11,7 +14,7 @@ def api_help():
                     "/api/categories/<id>": 'get all offers by category',
                     "/api/offers": 'get all offers',
                     "/api/offers/<id>": 'get offers by id',
-                    "/api/search/<word>": 'search by word'})
+                    "/api/search/<phrase>": 'search by phrase (consists of words combined by "+"'})
 
 
 @app.route("/api/demo")
@@ -40,7 +43,7 @@ def api_add_category():
 
 
 # get all offer
-@app.route("/api/offers")
+@app.route("/api/offers/")
 def api_all_offers():
     qr = database.models.Offer.query.all()
     return json.dumps([o.serialize for o in qr], ensure_ascii=False)
@@ -60,8 +63,14 @@ def api_add_offer():
 
 
 # search
-@app.route("/api/search/<word>")
-def api_search(word):
-    # result = search()
-    return 'search'
-
+@app.route("/api/search/<phrase>")
+def api_search(phrase):
+    words = [morph.parse(x)[0].normal_form for x in phrase.split('+')]
+    result = database.models.Offer.query.all()
+    r_c = result[:]
+    for word in words:
+        for item in r_c:
+            if word not in item.tag.split(" "):
+                result.remove(item)
+        r_c = result[:]
+    return str(result)
