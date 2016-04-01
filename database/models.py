@@ -9,7 +9,7 @@ class Offer(db.Model):
     category_id = db.Column(db.ForeignKey('category.id'))
     category = db.relationship('Category', backref=db.backref('offers', lazy='dynamic'))
     desc = db.Column(db.String(500))
-    geo = db.Column(db.String(20))
+    geo = db.Column(db.PickleType)
     url = db.Column(db.String(40))
     tag = db.Column(db.String(100))
 
