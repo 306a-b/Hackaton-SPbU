@@ -1,3 +1,4 @@
+import sys
 import database.models
 from server_app import app
 
@@ -10,4 +11,6 @@ def api_demo():
 @app.route("/api/category/")
 def api_category():
     cat = database.models.Category.query.all()
+    print(cat)
+    sys.stdout.flush()
     return str(cat.first())
