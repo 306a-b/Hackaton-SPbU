@@ -62,6 +62,11 @@ $ heroku config:set HEROKU=1
 $ heroku apps:destroy --app _name_ --confirm _name_;
 ```
 but it's simplier to do it in Dashboard on heroku.com
+### Load test data
+```
+heroku run init
+heroku run test_samples
+```
 
 
 ## Python
