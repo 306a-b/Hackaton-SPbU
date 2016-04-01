@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
     };
 
     state = {
-        categories: [],
+
     };
 
     constructor() {
@@ -42,11 +42,11 @@ export default class Navigation extends React.Component {
                     </div>
                 </nav>
 
-                <If condition={ this.state.categories.length > 0 }>
+                <If condition={ this.props.categories.length > 0 }>
                     <Then>
                         <div>
                             <h4 className="text-center">Категории</h4>
-                            <Categories categories={ this.state.categories } />
+                            <Categories categories={ this.props.categories } />
                         </div>
                     </Then>
                     <Else>{ () =>

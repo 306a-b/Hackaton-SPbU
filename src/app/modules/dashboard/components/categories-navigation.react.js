@@ -25,7 +25,7 @@ class CategoriesNavigation extends React.Component {
 
     render() {
         const categories = this.props.categories.map( category =>
-            <a href="#" className="list-group-item" onClick={ this._handleClick.bind(null, category) }>{ category.name }</a>
+            <a key={`category-${category.id}`} href="#" className="list-group-item" onClick={ this._handleClick.bind(null, category) }>{ category.name }</a>
         );
 
         return (
