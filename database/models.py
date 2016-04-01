@@ -1,9 +1,11 @@
-from server_app import db
+from server_app import db, isHeroku
+import binascii
 import json
 
 
 class Offer(db.Model):
-    #__bind_key__ = 'offer'
+    if not isHeroku:
+        __bind_key__ = 'offer'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     time = db.Column(db.String(200))
@@ -23,10 +25,22 @@ class Offer(db.Model):
         self.url = url
         self.tag = tag
 
+    @property
+    def serialize(self):
+        return {'id': self.id,
+                'name': self.name,
+                'time': self.time,
+                'category_id': self.category_id,
+                'desc': self.desc,
+                'geo': self.geo,
+                'url': self.url,
+                'tag': self.tag}
+
     def __repr__(self):
-        return json.dumps({'name': self.name,
+        return json.dumps({'id': self.id,
+                           'name': self.name,
                            'time': self.time,
-                           'category': self.category,
+                           'category_id': self.category_id,
                            'desc': self.desc,
                            'geo': self.geo,
                            'url': self.url,
@@ -34,13 +48,20 @@ class Offer(db.Model):
 
 
 class Category(db.Model):
-    #__bind_key__ = 'category'
+    if not isHeroku:
+        __bind_key__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), unique=True)
+    name = db.Column(db.String(200), unique=True)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
 
     def __init__(self, name):
         self.name = name
 
     def __repr__(self):
-        return json.dumps({'name': self.name})
-
+        return json.dumps({'id': self.id, 'name': self.name})
