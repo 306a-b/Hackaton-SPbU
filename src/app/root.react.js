@@ -21,15 +21,14 @@ class Root extends React.Component {
         const devTools = process.env.NODE_ENV == 'development' ? <DevTools /> : null;
 
         return (
-            <div className="full-height row">
+            <div className="full-height">
                 <div className="col-sm-3 full-height">
                     <Navigation />
                 </div>
                 <div className="col-sm-9 full-height main-content">
-                    <div className="container">
-                        { this.props.children }
-                    </div>
+                    { this.props.children }
                 </div>
+                <div className="clearfix"></div>
 
                 { devTools }
             </div>
