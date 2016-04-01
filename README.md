@@ -13,3 +13,25 @@
 | Matvey Startsev | [VK](https://vk.com/kortik_ekb) |
 | Evgeny Orlov | [VK](https://vk.com/schvl) |
 | Artyom Anashev | [VK](https://vk.com/madmed677) |
+
+---
+
+## FrontEnd
+
+### Development
+```
+$ npm install
+$ npm start
+```
+
+### Production
+```
+$ npm install
+$ npm test
+$ npm run build
+```
+
+### Test
+```
+$ npm test
+```
