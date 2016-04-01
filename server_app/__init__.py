@@ -15,8 +15,8 @@ else:
         'offer' : 'sqlite:///offer.db'
     }
     #app.config['SQLALCHEMY_DATBASE_URI'] = 'sqlite:////tmp/base.db'
-    import database.db_create
-    import database.database_test_samples
+    #import database.db_create
+    #import database.database_test_samples
 
 import server_app.api
 import server_app.frontend
