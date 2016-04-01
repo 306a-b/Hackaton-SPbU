@@ -17,7 +17,7 @@ class Navigation extends React.Component {
 
     render() {
         return (
-            <div className="navigation">
+            <div className="navigation full-height">
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <form className="navbar-form navbar-left" role="search">
