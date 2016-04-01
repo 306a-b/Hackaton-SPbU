@@ -11,7 +11,7 @@ def api_help():
                     "/api/categories/<id>": 'get all offers by category',
                     "/api/offers": 'get all offers',
                     "/api/offers/<id>": 'get offers by id',
-                    "/api/search/<word>": 'search by word'})
+                    "/api/search/<phrase>": 'search by phrase (consists of words combined by "+"'})
 
 
 @app.route("/api/demo")
@@ -22,7 +22,7 @@ def api_demo():
 # get all category
 @app.route("/api/categories/")
 def api_categories():
-        return str(database.models.Category.query.all())
+    return str(database.models.Category.query.all())
 
 
 # get all offer by category
@@ -38,7 +38,7 @@ def api_add_category():
 
 
 # get all offer
-@app.route("/api/offers")
+@app.route("/api/offers/")
 def api_all_offers():
     return str(database.models.Offer.query.all())
 
@@ -56,8 +56,14 @@ def api_add_offer():
 
 
 # search
-@app.route("/api/search/<word>")
-def api_search(word):
-    # result = search()
-    return 'search'
-
+@app.route("/api/search/<phrase>")
+def api_search(phrase):
+    words = phrase.split('+')
+    result = database.models.Offer.query.all()
+    r_c = result[:]
+    for word in words:
+        for item in r_c:
+            if word not in item.tag.split(" "):
+                result.remove(item)
+        r_c = result[:]
+    return str(len(result)) + " " + str(result)
