@@ -1,4 +1,4 @@
-from database import db
+from server_app import db
 from database.models import Offer, Category
 
 cafe_cat = Category('Кафе')
