@@ -53,7 +53,7 @@ def api_all_offers():
 @app.route("/api/offers/<id>")
 def api_offer_by_id(id):
     qr = database.models.Offer.query.get(id)
-    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
+    return json.dumps([qr.serialize], ensure_ascii=False)
 
 
 # add offer
