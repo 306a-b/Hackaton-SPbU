@@ -5,7 +5,7 @@ from server_app import app
 
 @app.route("/api/demo")
 def api_demo():
-    return 'demo'
+    return "{ name: 'demo' }"
 
 
 @app.route("/api/category/")
