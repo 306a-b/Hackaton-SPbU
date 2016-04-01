@@ -22,7 +22,7 @@ class Root extends React.Component {
 
         return (
             <div className="full-height">
-                <div className="col-sm-3 full-height">
+                <div className="col-sm-3 full-height" style={{ 'overflow': 'scroll' }}>
                     <Navigation />
                 </div>
                 <div className="col-sm-9 full-height main-content">
