@@ -1,5 +1,5 @@
 from app import app, db
-
+import json
 
 class Offer(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
@@ -22,7 +22,9 @@ class Offer(db.Model):
         self.tag = tag
 
     def __repr__(self):
-        return  # json()
+        return json.dumps({'id': self.ID,
+                           'name': self.name,
+                           })
 
 
 class Category(db.Model):
