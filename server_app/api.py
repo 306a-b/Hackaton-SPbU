@@ -22,13 +22,15 @@ def api_demo():
 # get all category
 @app.route("/api/categories/")
 def api_categories():
-        return str(database.models.Category.query.all())
+    qr = database.models.Category.query.all()
+    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
 
 
 # get all offer by category
 @app.route("/api/categories/<id>")
 def api_offer_by_category(id):
-    return str(database.models.Offer.query.filter_by(category_id=id).all())
+    qr = database.models.Offer.query.filter_by(category_id=id).all()
+    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
 
 
 # add category
@@ -40,13 +42,15 @@ def api_add_category():
 # get all offer
 @app.route("/api/offers")
 def api_all_offers():
-    return str(database.models.Offer.query.all())
+    qr = database.models.Offer.query.all()
+    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
 
 
 # get offer by id
 @app.route("/api/offers/<id>")
 def api_offer_by_id(id):
-    return str(database.models.Offer.query.get(id))
+    qr = database.models.Offer.query.get(id)
+    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
 
 
 # add offer
