@@ -1,4 +1,5 @@
 import React, { PropTypes }     from 'react';
+import { If, Then, Else }       from 'react-if';
 import { connect }              from 'react-redux';
 import { getAll }               from '../../app/modules/dashboard/actions/categories';
 import '!style!css!stylus!../../css/navigation.styl';
@@ -42,10 +43,17 @@ export default class Navigation extends React.Component {
                     </div>
                 </nav>
 
-                <div>
-                    <h4 className="text-center">Категории</h4>
-                    <Categories categories={ this.state.categories } />
-                </div>
+                <If condition={ this.state.categories.length > 0 }>
+                    <Then>
+                        <div>
+                            <h4 className="text-center">Категории</h4>
+                            <Categories categories={ this.state.categories } />
+                        </div>
+                    </Then>
+                    <Else>{ () =>
+                        <h4 className="text-center">Нет категорий</h4>
+                    }</Else>
+                </If>
             </div>
         );
     }
