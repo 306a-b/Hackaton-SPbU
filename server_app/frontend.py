@@ -11,6 +11,6 @@ def index():
 
 @app.route('/dist/<path:filename>')
 def send_static(filename):
-    root_dir = os.path.dirname(os.getcwd())
-    return send_from_directory(os.path.join(root_dir, 'dist'), filename)
+    root_dir = os.path.abspath(os.path.dirname(__file__))
+    return send_from_directory(os.path.join(root_dir, os.pardir, 'dist'), filename)
 
