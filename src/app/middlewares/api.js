@@ -18,9 +18,11 @@ export default store => next => action => {
 
     const request = new Request({ url: action.callAPI, payload: action.payload });
 
-    request.get().then( res =>
-        next({ type: action.type + constants._SUCCESS, payload: res.json() })
-    , error =>
-        next({ type: action.type + constants._FAIL, error: error })
-    );
+    request.get().then( res => {
+        console.warn('Success: ', res);
+        return next({ type: action.type + constants._SUCCESS, payload: res.json() })
+    }, error => {
+        console.error('Error: ', error);
+        return next({ type: action.type + constants._FAIL, error: error })
+    });
 };

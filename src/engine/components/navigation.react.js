@@ -29,7 +29,6 @@ export default class Navigation extends React.Component {
         this.props.getAll();
     }
 
-
     render() {
         return (
             <div className="navigation full-height">
