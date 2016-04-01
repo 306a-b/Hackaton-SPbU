@@ -14,6 +14,6 @@ def api_category():
         cat = database.models.Category.query.all()
         print(cat)
         sys.stdout.flush()
-        return str(cat.first())
+        return str(cat)
     except Exception as e:
         return str(e)
