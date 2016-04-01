@@ -35,3 +35,37 @@ $ npm run build
 ```
 $ npm test
 ```
+
+## Heroku
+### heroku install
+1. Install from
+```
+https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+```
+2. do in cmd
+```
+$ heroku login
+```
+### Update production server
+commit all your changes and
+```
+$ git push heroku master
+```
+### Create app
+```
+$ heroku create _name_ --buildpack heroku/python
+$ git push heroku master
+```
+### Delete app
+```
+$ heroku apps:destroy --app _name_ --confirm _name_;
+```
+but it's simplier to do it in Dashboard on heroku.com
+
+
+## Python
+in virtual enviroment:
+```
+$ pip3 -r requirements.txt
+```
+
