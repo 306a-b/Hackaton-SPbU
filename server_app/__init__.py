@@ -7,6 +7,9 @@ app = Flask(__name__, template_folder='..', static_folder='', static_url_path=''
 db = SQLAlchemy(app)
 cors = CORS(app) # ВСЕ ЗАПРОСЫ МОГУТ ИМЕТЬ CORS
 
+# cors config
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 isHeroku = os.environ.get('HEROKU') is not None
 
