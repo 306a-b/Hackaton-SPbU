@@ -10,10 +10,5 @@ def api_demo():
 
 @app.route("/api/category/")
 def api_category():
-    try:
-        cat = database.models.Category.query.all()
-        print(cat)
-        sys.stdout.flush()
-        return str(cat)
-    except Exception as e:
-        return str(e)
+    cat = database.models.Category.query.all()
+    return str(cat)
