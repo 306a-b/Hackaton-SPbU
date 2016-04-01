@@ -27,19 +27,19 @@ def api_categories():
 
 # get all offer by category
 @app.route("/api/category/<category_name>")
-def api_category(category_name):
+def api_offer_by_category(category_name):
     return 'get all offer by category'
 
 
 # get all offer
 @app.route("/api/offer")
-def api_offer():
+def api_all_offer():
     return 'get all offer'
 
 
 # get offer by id
 @app.route("/api/offer/<id>")
-def api_offer(id):
+def api_offer_by_id(id):
     return 'get offer by id'
 
 
