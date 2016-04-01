@@ -1,4 +1,4 @@
-from database.models import Offer, Category
+import database.models as models
 from server_app import app
 
 
@@ -9,5 +9,5 @@ def api_demo():
 
 @app.route("/api/category/")
 def api_category():
-    cat = Category.query.all()
+    cat = models.Category.query.all()
     return str(cat.first())
