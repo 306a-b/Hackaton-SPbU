@@ -6,7 +6,7 @@ from flask import jsonify
 
 @app.route("/api/help")
 def api_help():
-    return jsonify({"/api/categories/" : 'get all category',
+    return jsonify({"/api/categories/" : 'get all categories',
                     "/api/category/<category_name>" : 'get all offer by category',
                     "/api/offer" : 'get all offer',
                     "/api/offer/<id>" : 'get offer by id',
@@ -26,8 +26,8 @@ def api_categories():
 
 
 # get all offer by category
-@app.route("/api/category/<category_name>")
-def api_offer_by_category(category_name):
+@app.route("/api/category/<category_id>")
+def api_offer_by_category(category_id):
     return 'get all offer by category'
 
 
