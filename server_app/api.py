@@ -26,24 +26,26 @@ def api_categories():
 
 
 # get all offer by category
-@app.route("/api/category/<category_id>")
-def api_offer_by_category(category_id):
-    return 'get all offer by category'
+@app.route("/api/category/<id>")
+def api_offer_by_category(id):
+    return str(database.models.Category.query.get(id))
 
 
 # get all offer
-@app.route("/api/offer")
-def api_all_offer():
-    return 'get all offer'
+@app.route("/api/offers")
+def api_all_offers():
+    off = database.models.Offer.query.all()
+    return str(off)
 
 
 # get offer by id
 @app.route("/api/offer/<id>")
 def api_offer_by_id(id):
-    return 'get offer by id'
+    return str(database.models.Offer.query.get(id))
 
 
 # search
 @app.route("/api/search/<word>")
 def api_search(word):
+    # result = search()
     return 'search'
