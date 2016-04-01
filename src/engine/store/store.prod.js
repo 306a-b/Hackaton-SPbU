@@ -1,16 +1,11 @@
 import { applyMiddleware, createStore, compose }    from 'redux';
 import thunk                                        from 'redux-thunk';
 import reducers                                     from '../settings/_reducers';
-// import middleware                                from './_middleware';
-
-if ( module.hot ) {
-    module.hot.accept('../settings/_reducers', () =>
-        store.replaceReducer( require('../settings/_reducers').default )
-    );
-}
+import api                                          from '../../app/middlewares/api';
 
 const middleware = compose(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
+    applyMiddleware(api)
 );
 
 const store = createStore(reducers, {}, middleware);

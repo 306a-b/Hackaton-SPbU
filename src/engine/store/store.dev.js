@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, compose }    from 'redux';
 import thunk                                        from 'redux-thunk';
 import reducers                                     from '../settings/_reducers';
 import DevTools                                     from '../settings/_devtools';
-// import middleware                                from './_middleware';
+import api                                          from '../../app/middlewares/api';
 
 if ( module.hot ) {
     module.hot.accept('../settings/_reducers', () =>
@@ -11,7 +11,7 @@ if ( module.hot ) {
 }
 
 const middleware = compose(
-    applyMiddleware(thunk),
+    applyMiddleware(api),
     DevTools.instrument()
 );
 

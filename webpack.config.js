@@ -43,7 +43,7 @@ const config = {
     devServer: {
         proxy: [{
             path: '/api/*',
-            target: 'http://localhost:3001'
+            target: 'http://localhost:9000'
         }],
         port: '1336',
         historyApiFallback: true,
