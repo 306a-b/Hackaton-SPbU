@@ -30,7 +30,7 @@ class Offer(db.Model):
         return {'id': self.id,
                 'name': self.name,
                 'time': self.time,
-                'category': self.category,
+                'category_id': self.category_id,
                 'desc': self.desc,
                 'geo': self.geo,
                 'url': self.url,
