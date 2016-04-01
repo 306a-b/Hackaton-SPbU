@@ -47,9 +47,23 @@ https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 $ heroku login
 ```
 ### Update production server
-commit all your changes and
+1. add remote to your local repo
+```
+heroku git:remote -a _name_
+```
+2. commit all your changes
+```
+git add .
+git commit -m '_message_'
+```
+3.
+- if you use branch master
 ```
 $ git push heroku master
+```
+- if you use your own branch
+```
+$ git push heroku _branch-name_:master
 ```
 ### Create app
 ```
