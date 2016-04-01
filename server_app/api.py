@@ -66,4 +66,4 @@ def api_search(phrase):
             if word not in item.tag.split(" "):
                 result.remove(item)
         r_c = result[:]
-    return str(len(result)) + " " + str(result)
+    return str(result)
