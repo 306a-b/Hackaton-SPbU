@@ -1,5 +1,6 @@
 import React            from 'react';
 import { createMap }    from '../helpers';
+import Loader           from '../../../../engine/components/loader.react';
 
 class YandexMap extends React.Component {
     static propTypes = {
@@ -28,7 +29,7 @@ class YandexMap extends React.Component {
 
 
     render() {
-        const loading = this.state.loading ? <span>Loading</span> : null;
+        const loading = this.state.loading ? <Loader /> : null;
         return (
             <div id="yandex-map">
                 { loading }
