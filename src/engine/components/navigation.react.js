@@ -1,20 +1,25 @@
 import React, { PropTypes }     from 'react';
+import _                        from 'lodash';
 import { If, Then, Else }       from 'react-if';
 import { connect }              from 'react-redux';
 import { getAll }               from '../../app/modules/dashboard/actions/categories';
+import { getByCategoryId }      from '../../app/modules/dashboard/actions/offers';
 import '!style!css!stylus!../../css/navigation.styl';
 
 import Categories               from '../../app/modules/dashboard/components/categories-navigation.react';
 
 @connect( state => ({
-    categories: state.categories
-}), { getAll })
+    categories: state.categories,
+    offers: state.offers,
+}), { getAll, getByCategoryId })
 
 export default class Navigation extends React.Component {
     static propTypes = {
         categories: PropTypes.array,
+        offers: PropTypes.array,
 
         getAll: PropTypes.func,
+        getByCategoryId: PropTypes.func,
     };
 
     state = {
@@ -29,9 +34,14 @@ export default class Navigation extends React.Component {
         this.props.getAll();
     }
 
-    _setActiveCategory = category => this.setState({ activeCategory: category });
+    _setActiveCategory = category => {
+        this.props.getByCategoryId(category);
+        this.setState({ activeCategory: category });
+    };
 
     render() {
+        console.log('this.state.activeCategory: ', this.state.activeCategory);
+
         return (
             <div className="navigation full-height">
                 <nav className="navbar navbar-default">
@@ -53,6 +63,18 @@ export default class Navigation extends React.Component {
                     </Then>
                     <Else>{ () =>
                         <h4 className="text-center">Нет категорий</h4>
+                    }</Else>
+                </If>
+
+                <If condition={ this.props.offers.length > 0 && !_.isEmpty(this.state.activeCategory) }>
+                    <Then>
+                        <div>
+                            <h4 className="text-center">Предложения</h4>
+
+                        </div>
+                    </Then>
+                    <Else>{ () =>
+                        <h4 className="text-center">Нет предложений</h4>
                     }</Else>
                 </If>
             </div>

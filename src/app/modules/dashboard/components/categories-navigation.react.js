@@ -31,16 +31,26 @@ class CategoriesNavigation extends React.Component {
     render() {
         const categories = this.props.categories.map( category => {
             const classes = cx({
-                'list-group-item': true,
-                'active': category.id == this.props.category.id
+                'panel': true,
+                'panel-default': category.id != this.props.category.id,
+                'panel-primary': category.id == this.props.category.id
             });
-            return <a key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>{ category.name }</a>
+            return (
+                <div key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>
+                    <div className="panel-heading">{ category.name }</div>
+
+                    <ul className="list-group">
+                        <li className="list-group-item">Helol</li>
+                        <li className="list-group-item">Hello</li>
+                    </ul>
+                </div>
+            )
         });
 
         return (
-            <ul className="list-group">
+            <div>
                 { categories }
-            </ul>
+            </div>
         );
     }
 }
