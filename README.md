@@ -55,17 +55,23 @@ $ git push heroku master
 ```
 $ heroku create _name_ --buildpack heroku/python
 $ git push heroku master
+$ heroku config:set HEROKU=1
 ```
 ### Delete app
 ```
 $ heroku apps:destroy --app _name_ --confirm _name_;
 ```
 but it's simplier to do it in Dashboard on heroku.com
+### Load test data
+```
+heroku run init
+heroku run test_samples
+```
 
 
 ## Python
 in virtual enviroment:
 ```
-$ pip3 -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
