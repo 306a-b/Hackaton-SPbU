@@ -1,4 +1,5 @@
 import React, { PropTypes }         from 'react';
+import YandexMap                    from './yandex-map.react';
 
 class Container extends React.Component {
     static propTypes = {
@@ -11,9 +12,7 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div>
-                Dashboard
-            </div>
+            <YandexMap />
         );
     }
 };
