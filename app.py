@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 
 app = Flask(__name__, template_folder='')
-
+app.config['SQLALCHEMY_DATBASE_URI'] = 'sqlite:////tmp/base.db'
+db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
