@@ -3,14 +3,15 @@ import json
 
 
 class Offer(db.Model):
+    __bind_key__ = 'offer'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40))
-    time = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    time = db.Column(db.String(200))
     category_id = db.Column(db.ForeignKey('category.id'))
     category = db.relationship('Category', backref=db.backref('offers', lazy='dynamic'))
     desc = db.Column(db.String(500))
     geo = db.Column(db.PickleType)
-    url = db.Column(db.String(40))
+    url = db.Column(db.String(100))
     tag = db.Column(db.String(100))
 
     def __init__(self, name, time, category, desc, geo, url, tag):
@@ -33,6 +34,7 @@ class Offer(db.Model):
 
 
 class Category(db.Model):
+    __bind_key__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
 
