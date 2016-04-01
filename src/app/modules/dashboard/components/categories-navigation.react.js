@@ -1,12 +1,17 @@
 import React, { PropTypes }                from 'react';
+import cx                                  from 'classnames';
 
 class CategoriesNavigation extends React.Component {
     static propTypes = {
         categories: PropTypes.array,
+        category: PropTypes.object,
+
+        setActive: PropTypes.func,
     };
 
     static defaultProps = {
         categories: [],
+        category: {},
     };
 
     state = {
@@ -20,13 +25,17 @@ class CategoriesNavigation extends React.Component {
     _handleClick = (category ,e) => {
         e.preventDefault();
 
-        console.log('category: ', category);
+        this.props.setActive(category);
     };
 
     render() {
-        const categories = this.props.categories.map( category =>
-            <a key={`category-${category.id}`} href="#" className="list-group-item" onClick={ this._handleClick.bind(null, category) }>{ category.name }</a>
-        );
+        const categories = this.props.categories.map( category => {
+            const classes = cx({
+                'list-group-item': true,
+                'active': category.id == this.props.category.id
+            });
+            return <a key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>{ category.name }</a>
+        });
 
         return (
             <ul className="list-group">

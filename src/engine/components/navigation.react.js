@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
     };
 
     state = {
-
+        activeCategory: {},
     };
 
     constructor() {
@@ -28,6 +28,8 @@ export default class Navigation extends React.Component {
     componentDidMount() {
         this.props.getAll();
     }
+
+    _setActiveCategory = category => this.setState({ activeCategory: category });
 
     render() {
         return (
@@ -46,7 +48,7 @@ export default class Navigation extends React.Component {
                     <Then>
                         <div>
                             <h4 className="text-center">Категории</h4>
-                            <Categories categories={ this.props.categories } />
+                            <Categories categories={ this.props.categories } category={ this.state.activeCategory } setActive={ this._setActiveCategory } />
                         </div>
                     </Then>
                     <Else>{ () =>
