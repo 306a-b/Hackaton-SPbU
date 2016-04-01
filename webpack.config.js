@@ -51,8 +51,8 @@ const config = {
 
     plugins: [
         new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV),
-            NODE_PATH: JSON.stringify(NODE_PATH),
+            'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+            'process.env.NODE_PATH': JSON.stringify(NODE_PATH),
         }),
         new webpack.ProvidePlugin({
             'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
