@@ -6,11 +6,11 @@ from flask import jsonify
 
 @app.route("/api/help")
 def api_help():
-    return jsonify({"/api/categories/" : 'get all categories',
-                    "/api/categories/<id>" : 'get all offers by category',
-                    "/api/offers" : 'get all offers',
-                    "/api/offers/<id>" : 'get offers by id',
-                    "/api/search/<word>" : 'search by word'})
+    return jsonify({"/api/categories/": 'get all categories',
+                    "/api/categories/<id>": 'get all offers by category',
+                    "/api/offers": 'get all offers',
+                    "/api/offers/<id>": 'get offers by id',
+                    "/api/search/<word>": 'search by word'})
 
 
 @app.route("/api/demo")
@@ -21,14 +21,13 @@ def api_demo():
 # get all category
 @app.route("/api/categories/")
 def api_categories():
-    cat = database.models.Category.query.all()
-    return str(cat)
+        return jsonify(database.models.Category.query.all())
 
 
 # get all offer by category
 @app.route("/api/categories/<id>")
 def api_offer_by_category(id):
-    return database.models.Offer.query.filter_by(category_id=id)
+    return jsonify(database.models.Offer.query.filter_by(category_id=id))
 
 
 # add category
@@ -40,14 +39,13 @@ def api_add_category():
 # get all offer
 @app.route("/api/offers")
 def api_all_offers():
-    off = database.models.Offer.query.all()
-    return str(off)
+    return jsonify(database.models.Offer.query.all())
 
 
 # get offer by id
 @app.route("/api/offers/<id>")
 def api_offer_by_id(id):
-    return str(database.models.Offer.query.get(id))
+    return jsonify(database.models.Offer.query.get(id))
 
 
 # add offer
