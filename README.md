@@ -55,6 +55,7 @@ $ git push heroku master
 ```
 $ heroku create _name_ --buildpack heroku/python
 $ git push heroku master
+$ heroku config:set HEROKU=1
 ```
 ### Delete app
 ```
@@ -66,6 +67,6 @@ but it's simplier to do it in Dashboard on heroku.com
 ## Python
 in virtual enviroment:
 ```
-$ pip3 -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
