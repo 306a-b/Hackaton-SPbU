@@ -26,9 +26,19 @@ def api_categories():
 
 
 # get all offer by category
-@app.route("/api/category/<id>")
+@app.route("/api/categories/<id>")
 def api_offer_by_category(id):
-    return str(database.models.Category.query.get(id))
+    res = []
+    for item in database.models.Offer.query.all():
+        if item.category_id == id:
+            res.append(item)
+    return res
+
+
+# add category
+@app.route("/api/categories/add")
+def api_add_category():
+    return "sample"
 
 
 # get all offer
@@ -39,13 +49,16 @@ def api_all_offers():
 
 
 # get offer by id
-@app.route("/api/offer/<id>")
+@app.route("/api/offers/<id>")
 def api_offer_by_id(id):
     return str(database.models.Offer.query.get(id))
 
 
+# add offer
+@app.route("/api/offers/add")
 # search
 @app.route("/api/search/<word>")
 def api_search(word):
     # result = search()
     return 'search'
+
