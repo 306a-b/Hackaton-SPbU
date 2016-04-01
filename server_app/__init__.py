@@ -10,7 +10,11 @@ isHeroku = os.environ.get('HEROKU') is not None
 if isHeroku:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 else:
-    app.config['SQLALCHEMY_DATBASE_URI'] = 'sqlite:////tmp/base.db'
+    app.config['SQLALCHEMY_BINDS'] = {
+        'category' : 'sqlite:///category.db',
+        'offer' : 'sqlite:///offer.db'
+    }
+    #app.config['SQLALCHEMY_DATBASE_URI'] = 'sqlite:////tmp/base.db'
     #import database.db_create
     #import database.database_test_samples
 
