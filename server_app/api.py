@@ -10,4 +10,4 @@ def api_demo():
 @app.route("/api/category/")
 def api_category():
     cat = Category.query.all()
-    return cat.first()
+    return str(cat.first())
