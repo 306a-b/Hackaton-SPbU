@@ -1,19 +1,33 @@
-import React            from 'react';
-import { Link }         from 'react-router';
+import React, { PropTypes }     from 'react';
+import { connect }              from 'react-redux';
+import { getAll }               from '../../app/modules/dashboard/actions/categories';
 import '!style!css!stylus!../../css/navigation.styl';
 
-class Navigation extends React.Component {
-    static propTypes = {
+import Categories               from '../../app/modules/dashboard/components/categories-navigation.react';
 
+@connect( state => ({
+    categories: state.categories
+}), { getAll })
+
+export default class Navigation extends React.Component {
+    static propTypes = {
+        categories: PropTypes.array,
+
+        getAll: PropTypes.func,
     };
 
     state = {
-
+        categories: [],
     };
 
     constructor() {
         super();
     }
+
+    componentDidMount() {
+        this.props.getAll();
+    }
+
 
     render() {
         return (
@@ -27,9 +41,12 @@ class Navigation extends React.Component {
                         </form>
                     </div>
                 </nav>
+
+                <div>
+                    <h4 className="text-center">Категории</h4>
+                    <Categories categories={ this.state.categories } />
+                </div>
             </div>
         );
     }
-}
-
-export default Navigation;
+};

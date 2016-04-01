@@ -19,8 +19,9 @@ class YandexMap extends React.Component {
 
     componentDidMount() {
         createMap('yandex-map', {
-            center: [55.76, 37.64],
-            zoom: 7
+            center: [59.874826, 29.828483],
+            zoom: 17,
+            controls: []
         }).then( map => {
             this.map = map;
             this.setState({ loading: false });
