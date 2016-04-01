@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
     };
 
     state = {
-        categories: [],
+        activeCategory: {},
     };
 
     constructor() {
@@ -28,6 +28,8 @@ export default class Navigation extends React.Component {
     componentDidMount() {
         this.props.getAll();
     }
+
+    _setActiveCategory = category => this.setState({ activeCategory: category });
 
     render() {
         return (
@@ -42,11 +44,11 @@ export default class Navigation extends React.Component {
                     </div>
                 </nav>
 
-                <If condition={ this.state.categories.length > 0 }>
+                <If condition={ this.props.categories.length > 0 }>
                     <Then>
                         <div>
                             <h4 className="text-center">Категории</h4>
-                            <Categories categories={ this.state.categories } />
+                            <Categories categories={ this.props.categories } category={ this.state.activeCategory } setActive={ this._setActiveCategory } />
                         </div>
                     </Then>
                     <Else>{ () =>
