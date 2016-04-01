@@ -39,7 +39,7 @@ export default store => next => action => {
 
     next({ type: action.type + constants._START });
 
-    console.log('middleware: ', action);
+    // console.log('middleware: ', action);
 
     const request = new Request({
         url: action.callAPI,
@@ -47,10 +47,8 @@ export default store => next => action => {
     });
 
     request.send().then( res => {
-        console.warn('Success: ', res);
-        return next({ type: action.type + constants._SUCCESS, payload: res.json() })
+        return next({ type: action.type + constants._SUCCESS, payload: res })
     }, error => {
-        console.error('Error: ', error);
         return next({ type: action.type + constants._FAIL, error: error })
     });
 };
