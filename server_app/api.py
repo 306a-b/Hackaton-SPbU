@@ -7,9 +7,9 @@ from flask import jsonify
 @app.route("/api/help")
 def api_help():
     return jsonify({"/api/categories/" : 'get all categories',
-                    "/api/category/<category_name>" : 'get all offer by category',
-                    "/api/offer" : 'get all offer',
-                    "/api/offer/<id>" : 'get offer by id',
+                    "/api/categories/<id>" : 'get all offers by category',
+                    "/api/offers" : 'get all offers',
+                    "/api/offers/<id>" : 'get offers by id',
                     "/api/search/<word>" : 'search by word'})
 
 
@@ -28,11 +28,7 @@ def api_categories():
 # get all offer by category
 @app.route("/api/categories/<id>")
 def api_offer_by_category(id):
-    res = []
-    for item in database.models.Offer.query.all():
-        if item.category_id == id:
-            res.append(item)
-    return res
+    return database.models.Offer.query.filter_by(category_id=id)
 
 
 # add category
@@ -56,6 +52,10 @@ def api_offer_by_id(id):
 
 # add offer
 @app.route("/api/offers/add")
+def api_add_offer():
+    return "sample"
+
+
 # search
 @app.route("/api/search/<word>")
 def api_search(word):
