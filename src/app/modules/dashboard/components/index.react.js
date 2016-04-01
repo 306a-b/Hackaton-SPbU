@@ -11,7 +11,7 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="yandex-map">
                 Dashboard
             </div>
         );

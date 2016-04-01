@@ -2,6 +2,8 @@ import React            from 'react';
 import Navigation       from '../engine/components/navigation.react';
 import DevTools         from '../engine/settings/_devtools';
 
+import '!style!css!stylus!../css/content.styl';
+
 class Root extends React.Component {
     static propTypes = {
 
@@ -19,11 +21,14 @@ class Root extends React.Component {
         const devTools = process.env.NODE_ENV == 'development' ? <DevTools /> : null;
 
         return (
-            <div className="full-height">
-                <Navigation />
-
-                <div className="container">
-                    { this.props.children }
+            <div className="full-height row">
+                <div className="col-sm-3 full-height">
+                    <Navigation />
+                </div>
+                <div className="col-sm-9 full-height main-content">
+                    <div className="container">
+                        { this.props.children }
+                    </div>
                 </div>
 
                 { devTools }
