@@ -28,8 +28,16 @@ const config = {
                 test: /.css/,
                 loader: 'style!css',
                 include: path.join(__dirname, 'src')
+            },
+            {
+                test: /.styl/,
+                loader: 'style!css!stylus',
+                include: path.join(__dirname, 'src')
             }
-        ]
+        ],
+        resolve: {
+            extensions: ['', '.js', '.styl']
+        }
     },
 
     devServer: {
@@ -55,7 +63,7 @@ const config = {
 };
 
 // Production config
-if (process.env.NODE_ENV === 'production') {
+if ( NODE_ENV === 'production' ) {
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
