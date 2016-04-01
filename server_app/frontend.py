@@ -1,10 +1,12 @@
 import os
-from server_app import app
+from server_app import app, cors
 from flask import render_template, send_from_directory
+from flask_cors import cross_origin
 
 
 @app.route("/")
 @app.route("/index")
+@cross_origin()
 def index():
     return render_template('index.html')
 

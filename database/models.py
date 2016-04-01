@@ -1,4 +1,5 @@
 from server_app import db, isHeroku
+import binascii
 import json
 
 
@@ -24,6 +25,17 @@ class Offer(db.Model):
         self.url = url
         self.tag = tag
 
+    @property
+    def serialize(self):
+        return {'id': self.id,
+                'name': self.name,
+                'time': self.time,
+                'category_id': self.category_id,
+                'desc': self.desc,
+                'geo': self.geo,
+                'url': self.url,
+                'tag': self.tag}
+
     def __repr__(self):
         return json.dumps({'id': self.id,
                            'name': self.name,
@@ -40,6 +52,13 @@ class Category(db.Model):
         __bind_key__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=True)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
 
     def __init__(self, name):
         self.name = name
