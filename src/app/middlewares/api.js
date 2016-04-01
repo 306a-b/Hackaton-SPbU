@@ -1,7 +1,8 @@
 import _                    from 'lodash';
 import constants            from '../../engine/settings/_constants';
+import Settings             from '../_settings';
 
-const baseURL               = process.env.NODE_ENV == 'production' ? 'http://hackaton-spbu-1.herokuapp.com' : 'http://hackaton-spbu-1.herokuapp.com';
+const baseURL               = Settings.env[process.env.NODE_ENV].url;
 
 function toQueryString(obj) {
     var parts = [];
