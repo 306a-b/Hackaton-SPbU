@@ -16,7 +16,7 @@ class Root extends React.Component {
     }
 
     render() {
-        const devTools = NODE_ENV == 'development' ? <DevTools /> : null;
+        const devTools = process.env.NODE_ENV == 'development' ? <DevTools /> : null;
 
         return (
             <div className="full-height">
