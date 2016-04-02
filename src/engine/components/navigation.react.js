@@ -40,8 +40,6 @@ export default class Navigation extends React.Component {
     };
 
     render() {
-        console.log('this.state.activeCategory: ', this.state.activeCategory);
-
         return (
             <div className="navigation full-height">
                 <nav className="navbar navbar-default">
@@ -58,23 +56,11 @@ export default class Navigation extends React.Component {
                     <Then>
                         <div>
                             <h4 className="text-center">Категории</h4>
-                            <Categories categories={ this.props.categories } category={ this.state.activeCategory } setActive={ this._setActiveCategory } />
+                            <Categories categories={ this.props.categories } category={ this.state.activeCategory } setActive={ this._setActiveCategory } offers={ this.props.offers } />
                         </div>
                     </Then>
                     <Else>{ () =>
                         <h4 className="text-center">Нет категорий</h4>
-                    }</Else>
-                </If>
-
-                <If condition={ this.props.offers.length > 0 && !_.isEmpty(this.state.activeCategory) }>
-                    <Then>
-                        <div>
-                            <h4 className="text-center">Предложения</h4>
-
-                        </div>
-                    </Then>
-                    <Else>{ () =>
-                        <h4 className="text-center">Нет предложений</h4>
                     }</Else>
                 </If>
             </div>

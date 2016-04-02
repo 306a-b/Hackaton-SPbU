@@ -3,7 +3,7 @@ import c                            from '../../../../engine/settings/_constants
 
 export default (state = [], action) => {
     const { payload, type } = action;
-    console.log('action: ', action);
+    // console.log('action: ', action);
 
     switch ( type ) {
         case constants.LOAD_CATEGORIES + c._SUCCESS:

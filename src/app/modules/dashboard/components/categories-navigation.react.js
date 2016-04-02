@@ -1,10 +1,13 @@
-import React, { PropTypes }                from 'react';
-import cx                                  from 'classnames';
+import React, { PropTypes }                 from 'react';
+import { If, Then, Else }                   from 'react-if';
+import cx                                   from 'classnames';
+import OffersList                           from './offers-list.react';
 
 class CategoriesNavigation extends React.Component {
     static propTypes = {
         categories: PropTypes.array,
         category: PropTypes.object,
+        offers: PropTypes.array,
 
         setActive: PropTypes.func,
     };
@@ -17,6 +20,12 @@ class CategoriesNavigation extends React.Component {
     state = {
 
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if ( nextProps.offers.length == 0 ) return true;
+        if ( _.isEqual(this.props.offers, nextProps.offers) ) return false;
+        return true;
+    }
 
     constructor() {
         super();
@@ -35,14 +44,16 @@ class CategoriesNavigation extends React.Component {
                 'panel-default': category.id != this.props.category.id,
                 'panel-primary': category.id == this.props.category.id
             });
+
             return (
                 <div key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>
                     <div className="panel-heading">{ category.name }</div>
 
-                    <ul className="list-group">
-                        <li className="list-group-item">Helol</li>
-                        <li className="list-group-item">Hello</li>
-                    </ul>
+                    <If condition={ this.props.category.id == category.id }>
+                        <Then>
+                            <OffersList offers={ this.props.offers } />
+                        </Then>
+                    </If>
                 </div>
             )
         });
