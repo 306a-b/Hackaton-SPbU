@@ -2,17 +2,25 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import pymorphy2
+
+
+morph = pymorphy2.MorphAnalyzer()
+
+isHeroku = os.environ.get('HEROKU') is not None
 
 app = Flask(__name__, template_folder='..', static_folder='', static_url_path='')
 db = SQLAlchemy(app)
 cors = CORS(app) # ВСЕ ЗАПРОСЫ МОГУТ ИМЕТЬ CORS
+if isHeroku: # обязательный ssl только на heroku
+    from flask_sslify import SSLify
+    #print('ssl is on')
+    sslify = SSLify(app)
 
 # cors config
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-isHeroku = os.environ.get('HEROKU') is not None
-
+# db config
 if isHeroku:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 else:

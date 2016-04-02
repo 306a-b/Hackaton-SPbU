@@ -1,4 +1,4 @@
-from server_app import db, isHeroku
+from server_app import db, isHeroku, morph
 import binascii
 import json
 
@@ -23,7 +23,11 @@ class Offer(db.Model):
         self.desc = desc
         self.geo = geo
         self.url = url
-        self.tag = tag
+        try:
+            self.tag = ' '.join([morph.parse(x)[0].normal_form for x in tag.split(' ')])
+        except:
+            self.tag = tag
+            print('fail')
 
     @property
     def serialize(self):
