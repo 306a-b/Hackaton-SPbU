@@ -5,7 +5,6 @@ from server_app import app, morph
 from flask import jsonify, request
 
 
-
 @app.route("/api/help")
 def api_help():
     return jsonify({"/api/categories/": 'get all categories',
@@ -68,6 +67,12 @@ def api_offer_by_id(id):
 @app.route("/api/offers/add", methods=['POST'])
 def api_add_offer():
     jsn = request.get_json(force=True)
+
+    cat = database.models.Category.query.filter_by(name=jsn['category']).first()
+    if cat is None:
+        cat = database.models.Category(cat)
+        database.models.db.session.add(cat)
+        
     offer = database.models.Offer(name=jsn['name'],
                                   time=jsn['time'],
                                   category=jsn['category'],
