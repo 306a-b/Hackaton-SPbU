@@ -70,7 +70,7 @@ def api_add_offer():
 
     cat = database.models.Category.query.filter_by(name=jsn['category']).first()
     if cat is None:
-        cat = database.models.Category(cat)
+        cat = database.models.Category(jsn['category'])
         database.models.db.session.add(cat)
 
     offer = database.models.Offer(name=jsn['name'],
