@@ -15,6 +15,7 @@ def index():
 
 
 @app.route("/admin/db/offer")
+@cross_origin()
 def admin_db_offer():
     return render_template('admin_db_offer.html')
 
