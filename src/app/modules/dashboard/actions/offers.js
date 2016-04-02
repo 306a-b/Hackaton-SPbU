@@ -17,3 +17,7 @@ export const getAll = (query = '') => ({
     callAPI: `/api/search/${query}`,
     method: 'GET'
 });
+
+export const clearAllOffers = () => ({
+    type: constants.CLEAR_OFFERS,
+});

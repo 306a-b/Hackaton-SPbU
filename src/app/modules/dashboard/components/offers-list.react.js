@@ -15,6 +15,17 @@ class OffersList extends React.Component {
         offer: {},
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // console.log('props offer', this.props.offer);
+        // console.log('nextProps offer', nextProps.offer);
+        // // if ( nextProps.offers.length == 0 ) return true;
+        // if ( _.isEmpty(this.props.offer) ) return true;
+        //
+        // if ( this.props.offer.category_id == nextProps.offer.category_id ) return true;
+        // if ( this.props.offers == nextProps.offers ) return false;
+        return true;
+    }
+
     constructor() {
         super();
     }

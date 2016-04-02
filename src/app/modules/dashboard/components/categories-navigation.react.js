@@ -2,6 +2,7 @@ import React, { PropTypes }                 from 'react';
 import { If, Then, Else }                   from 'react-if';
 import cx                                   from 'classnames';
 import OffersList                           from './offers-list.react';
+import _                                    from 'lodash';
 
 class CategoriesNavigation extends React.Component {
     static propTypes = {
@@ -19,10 +20,7 @@ class CategoriesNavigation extends React.Component {
     };
 
     shouldComponentUpdate(nextProps, nextState) {
-        if ( nextProps.offers.length == 0 ) return true;
-        if ( _.isEmpty(this.props.offer) ) return true;
-        if ( this.props.offer.category_id == nextProps.offer.category_id ) return true;
-        if ( this.props.offers == nextProps.offers ) return false;
+        if ( this.props.category.id != nextProps.category.id ) return false;
         return true;
     }
 
