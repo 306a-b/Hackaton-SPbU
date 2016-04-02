@@ -1,5 +1,6 @@
 import _                    from 'lodash';
 import constants            from '../../engine/settings/_constants';
+import categoriesConst      from '../../app/modules/dashboard/constants/categories';
 import Settings             from '../_settings';
 
 const baseURL               = Settings.env[process.env.NODE_ENV].url;
@@ -37,7 +38,15 @@ class Request {
 export default store => next => action => {
     if ( !action.callAPI ) return next(action);
 
-    next({ type: action.type + constants._START });
+
+    switch ( action.type ) {
+        case categoriesConst.LOAD_OFFERS:
+            next({ type: action.type + constants._START, payload: [] });
+            break;
+
+        default:
+            next({ type: action.type + constants._START });
+    }
 
     // console.log('middleware: ', action);
 
