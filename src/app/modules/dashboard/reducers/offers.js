@@ -8,9 +8,12 @@ export default (state = [], action) => {
     switch ( type ) {
         case constants.LOAD_OFFERS_BY_CATEGORY + c._SUCCESS:
             return payload;
-        
+
         case constants.LOAD_OFFERS + c._SUCCESS:
             return payload;
+
+        case constants.CLEAR_OFFERS:
+            return [];
 
         default:
             return state;

@@ -2,7 +2,7 @@ import React, { PropTypes }             from 'react';
 import { If, Then, Else }               from 'react-if';
 import { connect }                      from 'react-redux';
 import { getAll }                       from '../../app/modules/dashboard/actions/categories';
-import { getByCategoryId, getById, getAll as getAllOffers }     from '../../app/modules/dashboard/actions/offers';
+import { getByCategoryId, getById, getAll as getAllOffers, clearAllOffers }     from '../../app/modules/dashboard/actions/offers';
 import history                          from '../../engine/settings/_history';
 import '!style!css!stylus!../../css/navigation.styl';
 
@@ -14,7 +14,7 @@ import Offers                           from '../../app/modules/dashboard/compon
     offers: state.offers,
     offer: state.offer,
     routing: state.routing,
-}), { getAll, getByCategoryId, getById, getAllOffers })
+}), { getAll, getByCategoryId, getById, getAllOffers, clearAllOffers })
 
 export default class Navigation extends React.Component {
     static propTypes = {
@@ -24,6 +24,7 @@ export default class Navigation extends React.Component {
 
         getAll: PropTypes.func,
         getByCategoryId: PropTypes.func,
+        clearAllOffers: PropTypes.func,
     };
 
     static defaultProps = {
@@ -72,18 +73,28 @@ export default class Navigation extends React.Component {
     };
 
     _keyDown = e => {
+        console.log('keyCode: ', e.keyCode, 'query: ', this.state.query, e.target.value);
         if ( e.keyCode == 13 ) {
             e.preventDefault();
 
             history.push(`/dashboard?q=${this.state.query}`);
 
             const query = this.state.query.split(' ').join('+');
-            this.props.getAllOffers(query);
+            if ( query.length == 0 ) this.props.clearAllOffers();
+            else this.props.getAllOffers(query);
+        }
+
+        if ( e.keyCode == 8 && this.state.query.length <= 1 ) {
+            this._onBlur(true);
         }
     };
 
-    _onBlur = () => {
+    _onBlur = (clearAll = false) => {
         history.push(`/dashboard?q=${this.state.query}`);
+
+        if ( clearAll ) this.props.clearAllOffers();
+
+        this.props.getAllOffers(this.state.query.split(' ').join('+'));
     };
 
     componentWillReceiveProps(nextProps) {
