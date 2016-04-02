@@ -82,6 +82,10 @@ export default class Navigation extends React.Component {
         }
     };
 
+    _onBlur = () => {
+        history.push(`/dashboard?q=${this.state.query}`);
+    };
+
     componentWillReceiveProps(nextProps) {
         const router = nextProps.routing.locationBeforeTransitions;
         const q = router.query.q;
@@ -96,7 +100,7 @@ export default class Navigation extends React.Component {
                     <div className="container-fluid">
                         <form className="navbar-form navbar-left" role="search">
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Поиск" value={ this.state.query } onChange={ this._search } onKeyDown={ this._keyDown } />
+                                <input type="text" className="form-control" placeholder="Поиск" value={ this.state.query } onBlur={ this._onBlur } onChange={ this._search } onKeyDown={ this._keyDown } />
                             </div>
                         </form>
                     </div>

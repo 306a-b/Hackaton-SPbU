@@ -10,7 +10,7 @@ class Offers extends React.Component {
     };
 
     state = {
-
+        
     };
 
     constructor() {
