@@ -1,5 +1,4 @@
 import React, { PropTypes }             from 'react';
-import _                                from 'lodash';
 import { If, Then, Else }               from 'react-if';
 import { connect }                      from 'react-redux';
 import { getAll }                       from '../../app/modules/dashboard/actions/categories';
@@ -8,6 +7,7 @@ import history                          from '../../engine/settings/_history';
 import '!style!css!stylus!../../css/navigation.styl';
 
 import Categories                       from '../../app/modules/dashboard/components/categories-navigation.react';
+import Offers                           from '../../app/modules/dashboard/components/offers.react';
 
 @connect( state => ({
     categories: state.categories,
@@ -103,16 +103,28 @@ export default class Navigation extends React.Component {
                     </div>
                 </nav>
 
-                <If condition={ this.props.categories.length > 0 }>
+                <If condition={ this.props.categories.length > 0 && (this.state.query ? false : true) }>
                     <Then>
                         <div>
                             <h4 className="text-center">Категории</h4>
                             <Categories categories={ this.props.categories } category={ this.state.activeCategory } setActive={ this._setActiveCategory } setActiveOffer={ this._setActiveOffer } offers={ this.props.offers } offer={ this.props.offer } />
                         </div>
                     </Then>
-                    <Else>{ () =>
+                </If>
+
+                <If condition={ this.props.categories.length == 0 && (!this.state.query ? true : false) }>
+                    <Then>
                         <h4 className="text-center">Нет категорий</h4>
-                    }</Else>
+                    </Then>
+                </If>
+
+                <If condition={ this.props.offers.length > 0 && this.state.query ? true : false }>
+                    <Then>
+                        <div>
+                            <h4 className="text-center">Предложения</h4>
+                            <Offers offers={ this.props.offers } />
+                        </div>
+                    </Then>
                 </If>
             </div>
         );
