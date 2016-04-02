@@ -1,0 +1,168 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заполнение базы предложений</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+
+<form name="forma1">
+
+    <table border="0" cellspacing="5" cellpadding="5" id="table1">
+
+        <caption>Форма добавления в базу данных</caption>
+
+        <tr>
+            <td align="right" valign="top">Название компании</td>
+            <td><input type="text" name="name" size="25" id="name"></td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top">Время работы</td>
+            <td><input type="text" name="e-mail" size="25" , id="time"></td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top">Описание</td>
+            <td>
+     <textarea type="text" cols="30" rows="3" wrap="physical" id="extra">
+     </textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top">Координата lat</td>
+            <td>
+                <input type="text" size="25" id="lat">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top">Координата lng</td>
+            <td>
+                <input type="text" id="lng" size="25">
+            </td>
+        </tr>
+
+        <!--
+        <tr>
+            <td align="center" colspan="2">
+                <input type="button" onclick="updateCategory()" value="Добавить свою категорию">
+            </td>
+        </tr>
+        -->
+
+        <tr>
+            <td align="right" valign="top">Категория</td>
+            <td>
+                <select name="Категория" , id="categories">
+                </select>
+            </td>
+        </tr>
+
+        <tr class="own-category-text-field">
+            <td align="right" valign="top">Своя категория</td>
+            <td>
+                <input type="text" id="myCat" size="25">
+            </td>
+        </tr>
+
+        <script>
+
+            var flickerAPI = "{{ url_for('api_categories') }}";
+
+            html = "<option value=" + 'my-own-name' + ">" + "Create own" + "</option>";
+            $("#categories").append(html);
+            $("#own-category-text-field").hide();
+
+            $.getJSON(flickerAPI, function (result) {
+                $.each(result, function (i, field) {
+                    html = "<option value=" + field.name + ">" + field.name + "</option>";
+                    $("#categories").append(html);
+                });
+            });
+
+            $("#categories").bind('change', function (e) {
+                if ($("#categories").val() == 'my-own-name') {
+                    console.log('asd');
+                    $("#table1 .own-category-text-field").show();
+                } else {
+                    $("#table1 .own-category-text-field").hide();
+                }
+            });
+            /*
+            function updateCategory() {
+                str = $("#myCat").val();
+                var json = {
+                    category: str
+                };
+
+                $.ajax({
+                    url: 'http://192.168.0.117:31337/api/categories/add',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        html = "<option value=" + str + ">" + str + "</option>";
+                        $("#categories").append(html);
+                    },
+                    data: json
+                });
+                */
+            }
+        </script>
+
+        <tr>
+            <td align="right" valign="top">URL</td>
+            <td>
+                <input type="text" name="password2" size="25" id="url">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right" valign="top">Тэги</td>
+            <td>
+                <input type="text" name="password2" size="25" id="tag">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right" colspan="2">
+                <input type="button" onclick="send()" value="Отправить">
+                <input type="reset" name="reset" value="Очистить">
+            </td>
+        </tr>
+
+        <script>
+            function send() {
+                var json = {
+                    name: $("#name").val(),
+                    time: $("#time").val(),
+                    category: $("#categories").text(),
+                    desc: $("#extra").val(),
+                    geo: {
+                        lat: $("#lat").val(),
+                        lng: $("#lng").val()
+                    },
+                    url: $("#url").val(),
+                    tag: $("#tag").val()
+                };
+                $.ajax({
+                    url: "{{ url_for('api_add_offer') }}",
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(data.msg);
+                    },
+                    data: json
+                });
+            }
+        </script>
+
+    </table>
+
+</form>
+
+</body>
+
+</html>
