@@ -17,13 +17,17 @@ class Offer(db.Model):
     tag = db.Column(db.String(100))
 
     def __init__(self, name, time, category, desc, geo, url, tag):
-        self.name = name
-        self.time = time
-        self.category = category
-        self.desc = desc
-        self.geo = geo
-        self.url = url
-        self.tag = tag
+        cat = Category.query.filter_by(name=category).first()
+        if cat is not None:
+            self.name = name
+            self.time = time
+            self.category = cat
+            self.desc = desc
+            self.geo = geo
+            self.url = url
+            self.tag = tag
+        else:
+            pass
 
     @property
     def serialize(self):
