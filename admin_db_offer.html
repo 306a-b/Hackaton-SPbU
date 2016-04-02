@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Заполнение базы предложений</title>
@@ -9,7 +10,7 @@
 
 <form name="forma1">
 
-    <table border="0" cellspacing="5" cellpadding="5" id="table1">
+    <table border="0" cellspacing="5" cellpadding="5">
 
         <caption>Форма добавления в базу данных</caption>
 
@@ -45,13 +46,40 @@
             </td>
         </tr>
 
-        <!--
         <tr>
-            <td align="center" colspan="2">
+            <td align="right" valign="top">Своя категория</td>
+            <td>
+                <input type="text" id="myCat" size="25">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center" colspan="1">
                 <input type="button" onclick="updateCategory()" value="Добавить свою категорию">
             </td>
         </tr>
-        -->
+
+        <script>
+            function updateCategory() {
+                str = $("#myCat").val();
+                var json = {
+                    name: str
+                };
+                console.log(JSON.stringify(json));
+                $.ajax({
+                    url: 'http://192.168.0.117:31337/api/categories/add',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        html = "<option value=" + str + ">" + str + "</option>";
+                        $("#categories").append(html);
+                    },
+                    data: JSON.stringify(json)
+                });
+
+            }
+        </script>
+
 
         <tr>
             <td align="right" valign="top">Категория</td>
@@ -61,20 +89,9 @@
             </td>
         </tr>
 
-        <tr class="own-category-text-field">
-            <td align="right" valign="top">Своя категория</td>
-            <td>
-                <input type="text" id="myCat" size="25">
-            </td>
-        </tr>
-
         <script>
 
-            var flickerAPI = "{{ url_for('api_categories') }}";
-
-            html = "<option value=" + 'my-own-name' + ">" + "Create own" + "</option>";
-            $("#categories").append(html);
-            $("#own-category-text-field").hide();
+            var flickerAPI = "https://hackaton-spbu-1.herokuapp.com/api/categories/";
 
             $.getJSON(flickerAPI, function (result) {
                 $.each(result, function (i, field) {
@@ -83,34 +100,6 @@
                 });
             });
 
-            $("#categories").bind('change', function (e) {
-                if ($("#categories").val() == 'my-own-name') {
-                    console.log('asd');
-                    $("#table1 .own-category-text-field").show();
-                } else {
-                    $("#table1 .own-category-text-field").hide();
-                }
-            });
-            /*
-            function updateCategory() {
-                str = $("#myCat").val();
-                var json = {
-                    category: str
-                };
-
-                $.ajax({
-                    url: 'http://192.168.0.117:31337/api/categories/add',
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        html = "<option value=" + str + ">" + str + "</option>";
-                        $("#categories").append(html);
-                    },
-                    data: json
-                });
-
-            }
-            */
         </script>
 
         <tr>
@@ -139,7 +128,7 @@
                 var json = {
                     name: $("#name").val(),
                     time: $("#time").val(),
-                    category: $("#categories").text(),
+                    category: $("#categories").val(),
                     desc: $("#extra").val(),
                     geo: {
                         lat: $("#lat").val(),
@@ -148,15 +137,26 @@
                     url: $("#url").val(),
                     tag: $("#tag").val()
                 };
-                $.ajax({
-                    url: "{{ url_for('api_add_offer') }}",
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        alert(data.msg);
-                    },
-                    data: json
-                });
+                $.ajax({ /
+                        url
+            :
+                'http://192.168.0.117:31337/api/offers/add',
+                        type
+            :
+                'post',
+                        dataType
+            :
+                'json',
+                        success
+            :
+                function (data) {
+                    alert(data.msg);
+                }
+
+            ,
+                data: JSON.stringify(json)
+            })
+                ;
             }
         </script>
 
