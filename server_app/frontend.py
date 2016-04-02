@@ -10,8 +10,9 @@ from flask_cors import cross_origin
 @cross_origin()
 def index():
     arg = request.args.to_dict()
-    #return str(arg)
+    # return str(arg)
     return render_template('index.html', **arg)
+
 
 @app.route("/admin/db/offer")
 def admin_db_offer():
@@ -23,3 +24,8 @@ def send_static(filename):
     root_dir = os.path.abspath(os.path.dirname(__file__))
     return send_from_directory(os.path.join(root_dir, os.pardir, 'dist'), filename)
 
+
+@app.route('/img/<path:filename>')
+def send_static(filename):
+    root_dir = os.path.abspath(os.path.dirname(__file__))
+    return send_from_directory(os.path.join(root_dir, os.pardir, 'img'), filename)
