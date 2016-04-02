@@ -63,7 +63,7 @@ def api_all_offers():
 @app.route("/api/offers/<id>")
 def api_offer_by_id(id):
     qr = database.models.Offer.query.get(id)
-    return json.dumps([o.serialize for o in qr], ensure_ascii=False)
+    return json.dumps([qr.serialize], ensure_ascii=False)
 
 
 # add offer
@@ -84,14 +84,14 @@ def api_add_offer():
 
     except:
         status = 'this user is already registered'
-    database.models.db.session.close()
+    #database.models.db.session.close()
     return jsonify({'result': status})
 
 
 # search
 @app.route("/api/search/<phrase>")
 def api_search(phrase):
-    words = [morph.parse(x)[0].normal_form for x in phrase.split('+')]
+    words = [morph.parse(x)[0].normal_form if morph.parse(x)[0].normal_form is not None else x for x in phrase.split('+')]
     result = database.models.Offer.query.all()
     r_c = result[:]
     for word in words:
