@@ -1,5 +1,4 @@
 import { applyMiddleware, createStore, compose }    from 'redux';
-import thunk                                        from 'redux-thunk';
 import reducers                                     from '../settings/_reducers';
 import DevTools                                     from '../settings/_devtools';
 import api                                          from '../../app/middlewares/api';

@@ -6,7 +6,7 @@ export default (state = [], action) => {
     // console.log('action: ', action);
 
     switch ( type ) {
-        case constants.LOAD_CATEGORIES + c._SUCCESS:
+        case constants.LOAD_OFFERS_BY_CATEGORY + c._SUCCESS:
             return payload;
 
         default:
