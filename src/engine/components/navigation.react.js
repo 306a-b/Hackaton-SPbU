@@ -48,7 +48,6 @@ export default class Navigation extends React.Component {
     componentDidMount() {
         const router = this.props.routing.locationBeforeTransitions;
         const q = router.query.q;
-        console.warn('q: ', q);
 
         this.props.getAll();
 
