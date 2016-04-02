@@ -99,4 +99,4 @@ def api_search(phrase):
             if word not in item.tag:
                 result.remove(item)
         r_c = result[:]
-    return str(result)
+    return json.dumps([o.serialize for o in result], ensure_ascii=False)
