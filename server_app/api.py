@@ -82,7 +82,7 @@ def api_add_offer():
 
     except:
         status = 'this user is already registered'
-    #database.models.db.session.close()
+    database.models.db.session.close()
     return jsonify({'result': status})
 
 
