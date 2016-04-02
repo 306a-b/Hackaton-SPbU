@@ -3,7 +3,7 @@ import database.models
 import json
 import pymorphy2
 from server_app import app
-from flask import jsonify
+from flask import jsonify, request
 
 morph = pymorphy2.MorphAnalyzer()
 
@@ -37,9 +37,19 @@ def api_offer_by_category(id):
 
 
 # add category
-@app.route("/api/categories/add")
+@app.route("/api/categories/add", methods=['POST'])
 def api_add_category():
-    return "sample"
+    jsn = request.get_json(force=True)
+    category = database.models.Category(name=jsn['name'])
+    try:
+        database.models.db.session.add(category)
+        database.models.db.session.commit()
+        status = 'success'
+
+    except:
+        status = 'this user is already registered'
+    database.models.db.session.close()
+    return jsonify({'result': status})
 
 
 # get all offer
@@ -57,9 +67,25 @@ def api_offer_by_id(id):
 
 
 # add offer
-@app.route("/api/offers/add")
+@app.route("/api/offers/add", methods=['POST'])
 def api_add_offer():
-    return "sample"
+    jsn = request.get_json(force=True)
+    offer = database.models.Offer(name=jsn['name'],
+                                  time=jsn['time'],
+                                  category=jsn['category'],
+                                  desc=jsn['desc'],
+                                  geo=jsn['geo'],
+                                  url=jsn['url'],
+                                  tag=jsn['tag'])
+    try:
+        database.models.db.session.add(offer)
+        database.models.db.session.commit()
+        status = 'success'
+
+    except:
+        status = 'this user is already registered'
+    database.models.db.session.close()
+    return jsonify({'result': status})
 
 
 # search
@@ -70,7 +96,7 @@ def api_search(phrase):
     r_c = result[:]
     for word in words:
         for item in r_c:
-            if word not in item.tag.split(" "):
+            if word not in item.tag:
                 result.remove(item)
         r_c = result[:]
     return str(result)
