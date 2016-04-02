@@ -18,11 +18,16 @@ class CategoriesNavigation extends React.Component {
     };
 
     state = {
-
+        offer: {},
     };
 
     shouldComponentUpdate(nextProps, nextState) {
+        console.log('offer state: ', this.state.offer);
+        console.log('offer next: ', nextState.offer);
+
         if ( nextProps.offers.length == 0 ) return true;
+        if ( _.isEmpty(this.state.offer) ) return true;
+        if ( this.state.offer.category_id == nextState.offer.category_id ) return true;
         if ( this.props.offers == nextProps.offers ) return false;
         return true;
     }
@@ -34,7 +39,13 @@ class CategoriesNavigation extends React.Component {
     _handleClick = (category ,e) => {
         e.preventDefault();
 
+        this.setState({ offer: {} });
         this.props.setActive(category);
+    };
+
+    _setActiveOffer = (offer, e) => {
+        e.preventDefault();
+        this.setState({ offer: offer });
     };
 
     render() {
@@ -46,12 +57,12 @@ class CategoriesNavigation extends React.Component {
             });
 
             return (
-                <div key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>
-                    <div className="panel-heading">{ category.name.toUpperCase() }</div>
+                <div key={`category-${category.id}`} href="#" className={ classes }>
+                    <div className="panel-heading" onClick={ this._handleClick.bind(null, category) }>{ category.name.toUpperCase() }</div>
 
                     <If condition={ this.props.category.id == category.id }>
                         <Then>
-                            <OffersList offers={ this.props.offers } />
+                            <OffersList offers={ this.props.offers } offer={ this.state.offer } setActiveOffer={ this._setActiveOffer } />
                         </Then>
                     </If>
                 </div>
