@@ -85,7 +85,6 @@
 
             $("#categories").bind('change', function (e) {
                 if ($("#categories").val() == 'my-own-name') {
-                    console.log('asd');
                     $("#table1 .own-category-text-field").show();
                 } else {
                     $("#table1 .own-category-text-field").hide();
@@ -136,10 +135,16 @@
 
         <script>
             function send() {
+                var cat_name;
+                if ($("#categories").val() == 'my-own-name') {
+                    cat_name = $("#myCat").val();
+                } else {
+                    cat_name = $("#categories").val();
+                }
                 var json = {
                     name: $("#name").val(),
                     time: $("#time").val(),
-                    category: $("#categories").text(),
+                    category: cat_name,
                     desc: $("#extra").val(),
                     geo: {
                         lat: $("#lat").val(),
