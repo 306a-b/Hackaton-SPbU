@@ -3,4 +3,5 @@ export default {
     LOAD_OFFERS_BY_CATEGORY: 'LOAD_OFFERS_BY_CATEGORY',
     
     LOAD_OFFER: 'LOAD_OFFER',
+    LOAD_OFFERS: 'LOAD_OFFERS',
 };

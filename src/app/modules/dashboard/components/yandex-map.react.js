@@ -28,6 +28,7 @@ class YandexMap extends React.Component {
     }
 
     componentDidMount() {
+        console.warn('did mount');
         createMap('yandex-map', {
             center: [59.874826, 29.828483],
             zoom: 17,
@@ -40,9 +41,9 @@ class YandexMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps: ', nextProps);
+        console.warn('will re');
 
-        this.myCollection.removeAll();
+        if ( this.myCollection ) this.myCollection.removeAll();
 
         for ( let i = 0; i < nextProps.offers.length; i++ ) {
             const offer = nextProps.offers[i];
@@ -62,7 +63,7 @@ class YandexMap extends React.Component {
             this.myCollection.add(myPlacemark);
         }
 
-        this.map.geoObjects.add(this.myCollection);
+        if ( this.map ) this.map.geoObjects.add(this.myCollection);
     }
 
     render() {
