@@ -97,11 +97,17 @@ def api_add_offer():
 @app.route("/api/search/<phrase>")
 def api_search(phrase):
     words = [morph.parse(x)[0].normal_form for x in phrase.split('+')]
-    result = database.models.Offer.query.all()
+    qr = database.models.Offer.query.all()
+    result = qr[:]
     r_c = result[:]
     for word in words:
         for item in r_c:
             if word not in item.tag:
                 result.remove(item)
         r_c = result[:]
+    if not result:
+        for item in qr:
+            for word in words:
+                if word in item.tag:
+                    result.append(item)
     return json.dumps([o.serialize for o in result], ensure_ascii=False)
