@@ -72,10 +72,10 @@ def api_add_offer():
     if cat is None:
         cat = database.models.Category(cat)
         database.models.db.session.add(cat)
-        
+
     offer = database.models.Offer(name=jsn['name'],
                                   time=jsn['time'],
-                                  category=jsn['category'],
+                                  category=cat,
                                   desc=jsn['desc'],
                                   geo=jsn['geo'],
                                   url=jsn['url'],
