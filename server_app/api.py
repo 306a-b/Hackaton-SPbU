@@ -1,11 +1,9 @@
 import sys
 import database.models
 import json
-import pymorphy2
-from server_app import app
+from server_app import app, morph
 from flask import jsonify, request
 
-morph = pymorphy2.MorphAnalyzer()
 
 
 @app.route("/api/help")
@@ -91,7 +89,8 @@ def api_add_offer():
 # search
 @app.route("/api/search/<phrase>")
 def api_search(phrase):
-    words = [morph.parse(x)[0].normal_form if morph.parse(x)[0].normal_form is not None else x for x in phrase.split('+')]
+    words = [morph.parse(x)[0].normal_form for x in phrase.split('+')]
+    print(words)
     result = database.models.Offer.query.all()
     r_c = result[:]
     for word in words:

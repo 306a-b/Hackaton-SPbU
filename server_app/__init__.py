@@ -2,6 +2,10 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import pymorphy2
+
+
+morph = pymorphy2.MorphAnalyzer()
 
 app = Flask(__name__, template_folder='..', static_folder='', static_url_path='')
 db = SQLAlchemy(app)
