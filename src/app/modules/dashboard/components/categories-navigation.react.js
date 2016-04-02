@@ -47,7 +47,7 @@ class CategoriesNavigation extends React.Component {
 
             return (
                 <div key={`category-${category.id}`} href="#" className={ classes } onClick={ this._handleClick.bind(null, category) }>
-                    <div className="panel-heading">{ category.name }</div>
+                    <div className="panel-heading">{ category.name.toUpperCase() }</div>
 
                     <If condition={ this.props.category.id == category.id }>
                         <Then>
