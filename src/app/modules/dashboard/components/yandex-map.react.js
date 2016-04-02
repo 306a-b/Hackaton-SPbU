@@ -24,6 +24,7 @@ class YandexMap extends React.Component {
         super();
 
         this.map = null;
+        this.myCollection = null;
     }
 
     componentDidMount() {
@@ -33,12 +34,32 @@ class YandexMap extends React.Component {
             controls: []
         }).then( map => {
             this.map = map;
+            this.myCollection = new ymaps.GeoObjectCollection();
             this.setState({ loading: false });
         });
     }
 
     componentWillReceiveProps(nextProps) {
         console.log('nextProps: ', nextProps);
+
+        this.myCollection.removeAll();
+
+        for ( let i = 0; i < nextProps.offers.length; i++ ) {
+            const offer = nextProps.offers[i];
+            const myPlacemark = new ymaps.Placemark([offer.geo.lng, offer.geo.lat], {
+                hitContent: 'Hi',
+                ballonContent: 'Hello my friend'
+            }, {
+                iconLayout: 'default#image',
+                iconImageHref: '/img/icon.jpg',
+                iconImageSize: [30, 30],
+                iconImageOffset: [-3, -42]
+            });
+
+            this.myCollection.add(myPlacemark);
+        }
+
+        this.map.geoObjects.add(this.myCollection);
     }
 
     render() {
