@@ -4,6 +4,7 @@ import { If, Then, Else }               from 'react-if';
 import { connect }                      from 'react-redux';
 import { getAll }                       from '../../app/modules/dashboard/actions/categories';
 import { getByCategoryId, getById }     from '../../app/modules/dashboard/actions/offers';
+import history                          from '../../engine/settings/_history';
 import '!style!css!stylus!../../css/navigation.styl';
 
 import Categories                       from '../../app/modules/dashboard/components/categories-navigation.react';
@@ -12,6 +13,7 @@ import Categories                       from '../../app/modules/dashboard/compon
     categories: state.categories,
     offers: state.offers,
     offer: state.offer,
+    routing: state.routing,
 }), { getAll, getByCategoryId, getById })
 
 export default class Navigation extends React.Component {
@@ -30,8 +32,13 @@ export default class Navigation extends React.Component {
         offer: {},
     };
 
+    static contextTypes = {
+        router: PropTypes.object,
+    };
+
     state = {
         activeCategory: {},
+        query: '',
     };
 
     constructor() {
@@ -48,10 +55,28 @@ export default class Navigation extends React.Component {
     };
 
     _setActiveOffer = (offer, e) => {
-        console.log('offer: ', offer, 'e: ', e);
         e.preventDefault();
         this.props.getById(offer);
     };
+
+    _search = e => {
+        this.setState({ query: e.target.value });
+    };
+
+    _keyDown = e => {
+        if ( e.keyCode == 13 ) {
+            e.preventDefault();
+
+            history.push(`/dashboard?q=${this.state.query}`);
+        }
+    };
+
+    componentWillReceiveProps(nextProps) {
+        const router = nextProps.routing.locationBeforeTransitions;
+        const q = router.query.q;
+
+        this.setState({ query: q });
+    }
 
     render() {
         return (
@@ -60,7 +85,7 @@ export default class Navigation extends React.Component {
                     <div className="container-fluid">
                         <form className="navbar-form navbar-left" role="search">
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Поиск" />
+                                <input type="text" className="form-control" placeholder="Поиск" value={ this.state.query } onChange={ this._search } onKeyDown={ this._keyDown } />
                             </div>
                         </form>
                     </div>
