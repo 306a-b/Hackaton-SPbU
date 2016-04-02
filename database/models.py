@@ -1,7 +1,6 @@
-from server_app import db, isHeroku
+from server_app import db, isHeroku, morph
 import binascii
 import json
-
 
 class Offer(db.Model):
     if not isHeroku:
@@ -17,13 +16,23 @@ class Offer(db.Model):
     tag = db.Column(db.String(100))
 
     def __init__(self, name, time, category, desc, geo, url, tag):
+        cat = Category.query.filter_by(name=category).first()
+        if cat is None:
+            self.category = Category(cat)
+        else:
+            self.category = cat
         self.name = name
         self.time = time
-        self.category = category
+        self.category = cat
         self.desc = desc
         self.geo = geo
         self.url = url
-        self.tag = tag
+        try:
+            self.tag = ' '.join([morph.parse(x)[0].normal_form for x in tag.split(' ')])
+
+        except:
+            self.tag = tag
+            print('fail')
 
     @property
     def serialize(self):

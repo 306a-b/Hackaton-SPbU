@@ -2,6 +2,10 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import pymorphy2
+
+
+morph = pymorphy2.MorphAnalyzer()
 
 isHeroku = os.environ.get('HEROKU') is not None
 

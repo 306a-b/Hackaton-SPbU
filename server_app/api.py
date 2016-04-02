@@ -1,11 +1,9 @@
 import sys
 import database.models
 import json
-import pymorphy2
-from server_app import app
+from server_app import app, morph
 from flask import jsonify, request
 
-morph = pymorphy2.MorphAnalyzer()
 
 
 @app.route("/api/help")
