@@ -5,3 +5,9 @@ export const getByCategoryId = category => ({
     callAPI: `/api/categories/${category.id}`,
     method: 'GET',
 });
+
+export const getById = offer => ({
+    type: constants.LOAD_OFFER,
+    callAPI: `/api/offers/${offer.id}`,
+    method: 'GET'
+});
