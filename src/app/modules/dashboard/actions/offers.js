@@ -11,3 +11,9 @@ export const getById = offer => ({
     callAPI: `/api/offers/${offer.id}`,
     method: 'GET'
 });
+
+export const getAll = (query = '') => ({
+    type: constants.LOAD_OFFERS,
+    callAPI: `/api/search/${query}`,
+    method: 'GET'
+});
