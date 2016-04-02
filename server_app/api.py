@@ -9,8 +9,10 @@ from flask import jsonify, request
 def api_help():
     return jsonify({"/api/categories/": 'get all categories',
                     "/api/categories/<id>": 'get all offers by category',
+                    "/api/categories/add": 'add category',
                     "/api/offers": 'get all offers',
                     "/api/offers/<id>": 'get offers by id',
+                    "/api/offers/add": 'add offer',
                     "/api/search/<phrase>": 'search by phrase (consists of words combined by "+"'})
 
 
