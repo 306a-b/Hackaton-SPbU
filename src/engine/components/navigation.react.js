@@ -77,6 +77,9 @@ export default class Navigation extends React.Component {
             e.preventDefault();
 
             history.push(`/dashboard?q=${this.state.query}`);
+
+            const query = this.state.query.split(' ').join('+');
+            this.props.getAllOffers(query);
         }
     };
 
