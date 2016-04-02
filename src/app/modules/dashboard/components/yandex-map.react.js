@@ -42,7 +42,7 @@ class YandexMap extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log('nextProps: ', nextProps);
 
-        this.myCollection.removeAll();
+        if ( this.myCollection ) this.myCollection.removeAll();
 
         for ( let i = 0; i < nextProps.offers.length; i++ ) {
             const offer = nextProps.offers[i];
@@ -62,7 +62,7 @@ class YandexMap extends React.Component {
             this.myCollection.add(myPlacemark);
         }
 
-        this.map.geoObjects.add(this.myCollection);
+        if ( this.map ) this.map.geoObjects.add(this.myCollection);
     }
 
     render() {

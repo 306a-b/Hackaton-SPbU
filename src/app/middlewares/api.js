@@ -44,6 +44,7 @@ export default store => next => action => {
     const request = new Request({
         url: action.callAPI,
         method: action.method,
+        query: action.payload ? action.payload.query : null,
     });
 
     request.send().then( res => {

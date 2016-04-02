@@ -3,7 +3,7 @@ import _                                from 'lodash';
 import { If, Then, Else }               from 'react-if';
 import { connect }                      from 'react-redux';
 import { getAll }                       from '../../app/modules/dashboard/actions/categories';
-import { getByCategoryId, getById }     from '../../app/modules/dashboard/actions/offers';
+import { getByCategoryId, getById, getAll as getAllOffers }     from '../../app/modules/dashboard/actions/offers';
 import history                          from '../../engine/settings/_history';
 import '!style!css!stylus!../../css/navigation.styl';
 
@@ -14,7 +14,7 @@ import Categories                       from '../../app/modules/dashboard/compon
     offers: state.offers,
     offer: state.offer,
     routing: state.routing,
-}), { getAll, getByCategoryId, getById })
+}), { getAll, getByCategoryId, getById, getAllOffers })
 
 export default class Navigation extends React.Component {
     static propTypes = {
@@ -46,7 +46,16 @@ export default class Navigation extends React.Component {
     }
 
     componentDidMount() {
+        const router = this.props.routing.locationBeforeTransitions;
+        const q = router.query.q;
+        console.warn('q: ', q);
+
         this.props.getAll();
+
+        if ( q ) {
+            const query = q.split(' ').join('+');
+            this.props.getAllOffers(query);
+        }
     }
 
     _setActiveCategory = category => {
