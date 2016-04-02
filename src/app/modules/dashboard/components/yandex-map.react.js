@@ -47,8 +47,11 @@ class YandexMap extends React.Component {
         for ( let i = 0; i < nextProps.offers.length; i++ ) {
             const offer = nextProps.offers[i];
             const myPlacemark = new ymaps.Placemark([offer.geo.lng, offer.geo.lat], {
-                hitContent: 'Hi',
-                ballonContent: 'Hello my friend'
+                hintContent: offer.name,
+
+                balloonContentHeader: offer.name,
+                balloonContentBody: offer.desc,
+                balloonContentFooter: offer.time,
             }, {
                 iconLayout: 'default#image',
                 iconImageHref: '/img/icon.jpg',
