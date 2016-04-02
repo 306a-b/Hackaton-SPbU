@@ -1,10 +1,19 @@
-import React            from 'react';
-import { createMap }    from '../helpers';
-import Loader           from '../../../../engine/components/loader.react';
+import React, { PropTypes }         from 'react';
+import { connect }                  from 'react-redux';
+import { createMap }                from '../helpers';
+import Loader                       from '../../../../engine/components/loader.react';
+
+@connect( state => ({
+    offers: state.offers,
+}), {})
 
 class YandexMap extends React.Component {
     static propTypes = {
+        offers: PropTypes.array,
+    };
 
+    static defaultProps = {
+        offers: [],
     };
 
     state = {
@@ -28,6 +37,9 @@ class YandexMap extends React.Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps: ', nextProps);
+    }
 
     render() {
         const loading = this.state.loading ? <Loader /> : null;

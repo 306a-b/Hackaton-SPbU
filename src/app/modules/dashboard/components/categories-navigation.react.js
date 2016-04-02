@@ -23,7 +23,7 @@ class CategoriesNavigation extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if ( nextProps.offers.length == 0 ) return true;
-        if ( _.isEqual(this.props.offers, nextProps.offers) ) return false;
+        if ( this.props.offers == nextProps.offers ) return false;
         return true;
     }
 
