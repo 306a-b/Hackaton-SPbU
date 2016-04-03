@@ -13,3 +13,79 @@
 | Matvey Startsev | [VK](https://vk.com/kortik_ekb) |
 | Evgeny Orlov | [VK](https://vk.com/schvl) |
 | Artyom Anashev | [VK](https://vk.com/madmed677) |
+
+---
+
+## FrontEnd
+
+### Development
+```
+$ npm install
+$ npm start
+```
+
+### Production
+```
+$ npm install
+$ npm test
+$ npm run build
+```
+
+### Test
+```
+$ npm test
+```
+
+## Heroku
+### heroku install
+1. Install from
+```
+https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+```
+2. do in cmd
+```
+$ heroku login
+```
+### Update production server
+1. add remote to your local repo
+```
+heroku git:remote -a _name_
+```
+2. commit all your changes
+```
+git add .
+git commit -m '_message_'
+```
+3.
+- if you use branch master
+```
+$ git push heroku master
+```
+- if you use your own branch
+```
+$ git push heroku _branch-name_:master
+```
+### Create app
+```
+$ heroku create _name_ --buildpack heroku/python
+$ git push heroku master
+$ heroku config:set HEROKU=1
+```
+### Delete app
+```
+$ heroku apps:destroy --app _name_ --confirm _name_;
+```
+but it's simplier to do it in Dashboard on heroku.com
+### Load test data
+```
+heroku run init
+heroku run test_samples
+```
+
+
+## Python
+in virtual enviroment:
+```
+$ pip3 install -r requirements.txt
+```
+

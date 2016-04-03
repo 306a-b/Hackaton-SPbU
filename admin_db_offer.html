@@ -1,0 +1,144 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заполнение базы предложений</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</head>
+<body>
+<style type="text/css">
+    .my-class {
+        max-width: 500px;
+    }
+</style>
+
+<div class="container my-class">
+    <form role="form" id="heruko">
+        <div class="form-group">
+            <label for="name">Название компании</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="time">Время работы</label>
+            <input type="text" class="form-control" id="time">
+        </div>
+        <div class="form-group">
+            <label for="extra">Описание</label>
+            <textarea type="text" class="form-control" rows="5" id="extra"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="lat">Координата lat</label>
+            <input type="text" class="form-control" id="lat">
+        </div>
+        <div class="form-group">
+            <label for="lng">Координата lng</label>
+            <input type="text" class="form-control" id="lng">
+        </div>
+        <div class="form-group">
+            <label for="categories">Категория</label>
+            <select name="Категория" class="form-control" id="categories"></select>
+        </div>
+        <div class="form-group own-category-text-field">
+            <label for="myCat">Своя категория</label>
+            <input type="text" class="form-control" id="myCat">
+        </div>
+        <div class="form-group">
+            <label for="url">URL</label>
+            <input type="text" class="form-control" id="url">
+        </div>
+        <div class="form-group">
+            <label for="tag">Тэги</label>
+            <input type="text" class="form-control" id="tag">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" type="button" onclick="send()" value="Отправить">
+            <input class="btn btn-danger" type="reset" name="reset" value="Очистить">
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var flickerAPI = "{{ url_for('api_categories') }}";
+
+        html = "<option value=" + 'my-own-name' + ">" + "Create own" + "</option>";
+        $("#categories").append(html);
+        $("#own-category-text-field").hide();
+
+        $.getJSON(flickerAPI, function (result) {
+            $.each(result, function (i, field) {
+                html = "<option value=" + field.name + ">" + field.name + "</option>";
+                $("#categories").append(html);
+            });
+        });
+
+        $("#categories").bind('change', function (e) {
+            if ($("#categories").val() == 'my-own-name') {
+                $("#heruko .own-category-text-field").show();
+            } else {
+                $("#heruko .own-category-text-field").hide();
+            }
+        });
+        /*
+         function updateCategory() {
+         str = $("#myCat").val();
+         var json = {
+         category: str
+         };
+
+         $.ajax({
+         url: 'http://192.168.0.117:31337/api/categories/add',
+         type: 'post',
+         dataType: 'json',
+         success: function (data) {
+         html = "<option value=" + str + ">" + str + "</option>";
+         $("#categories").append(html);
+         },
+         data: json
+         });
+
+         }
+         */
+    });
+</script>
+<script>
+    function send() {
+        var cat_name;
+        if ($("#categories").val() == 'my-own-name') {
+            cat_name = $("#myCat").val();
+        } else {
+            cat_name = $("#categories").val();
+        }
+        var json = {
+            name: $("#name").val(),
+            time: $("#time").val(),
+            category: cat_name,
+            desc: $("#extra").val(),
+            geo: {
+                lat: $("#lat").val(),
+                lng: $("#lng").val()
+            },
+            url: $("#url").val(),
+            tag: $("#tag").val()
+        };
+        $.ajax({
+            url: "{{ url_for('api_add_offer') }}",
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                //alert(data.msg);
+            },
+            data: JSON.stringify(json)
+        });
+    }
+</script>
+</body>
+</html>

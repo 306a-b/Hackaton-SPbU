@@ -28,14 +28,22 @@ const config = {
                 test: /.css/,
                 loader: 'style!css',
                 include: path.join(__dirname, 'src')
+            },
+            {
+                test: /.styl/,
+                loader: 'style!css!stylus',
+                include: path.join(__dirname, 'src')
             }
-        ]
+        ],
+        resolve: {
+            extensions: ['', '.js', '.styl']
+        }
     },
 
     devServer: {
         proxy: [{
             path: '/api/*',
-            target: 'http://localhost:3001'
+            target: 'http://localhost:9000'
         }],
         port: '1336',
         historyApiFallback: true,
@@ -43,8 +51,8 @@ const config = {
 
     plugins: [
         new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV),
-            NODE_PATH: JSON.stringify(NODE_PATH),
+            'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+            'process.env.NODE_PATH': JSON.stringify(NODE_PATH),
         }),
         new webpack.ProvidePlugin({
             'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
@@ -55,7 +63,7 @@ const config = {
 };
 
 // Production config
-if (process.env.NODE_ENV === 'production') {
+if ( NODE_ENV === 'production' ) {
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
